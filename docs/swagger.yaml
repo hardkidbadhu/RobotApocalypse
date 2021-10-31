@@ -1,0 +1,25 @@
+definitions:
+  model.HealthResponse:
+    properties:
+      status:
+        type: string
+      version:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/rob/v1/healthz:
+    get:
+      description: Health Check Of the API
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.HealthResponse'
+      summary: Health
+      tags:
+      - Health
+swagger: "2.0"
