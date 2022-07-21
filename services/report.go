@@ -2,13 +2,14 @@ package services
 
 import (
 	"errors"
+	"sort"
+	"strconv"
+	"sync"
+
 	"github.com/RobotApocalypse/Client"
 	"github.com/RobotApocalypse/model"
 	"github.com/RobotApocalypse/repository"
 	"github.com/gin-gonic/gin"
-	"sort"
-	"strconv"
-	"sync"
 )
 
 type ReportService interface {
@@ -56,7 +57,7 @@ func (r reportSvc) Percentage(ctx *gin.Context, filter string) (*model.Percentag
 		}()
 	default:
 		return nil, model.ErrResp{
-			Err:     errors.New("invalid filter"),
+			Err:     err,
 			ErrCode: model.ErrInvalidFilter,
 			Message: "invalid filter",
 		}

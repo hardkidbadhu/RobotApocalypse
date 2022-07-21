@@ -3,10 +3,11 @@ package repository
 import (
 	"database/sql"
 	"fmt"
-	"github.com/RobotApocalypse/configuration"
-	"github.com/RobotApocalypse/constants"
 	"strconv"
 	"time"
+
+	"github.com/RobotApocalypse/configuration"
+	"github.com/RobotApocalypse/constants"
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
@@ -29,13 +30,13 @@ type dbConnect struct {
 
 func (d dbConnect) ConnectDB() *sql.DB {
 	var err error
-	port, _ := strconv.Atoi(d.cfg.GetOsEnvString(constants.DBPort))
+	port, _ := strconv.Atoi(d.cfg.GetString(constants.DBPort))
 	psqlConn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		d.cfg.GetOsEnvString(constants.DBHost), port, d.cfg.GetOsEnvString(constants.DBUserName), d.cfg.GetOsEnvString(constants.DBPassword),
-		d.cfg.GetOsEnvString(constants.DBName))
+		d.cfg.GetString(constants.DBHost), port, d.cfg.GetString(constants.DBUserName), d.cfg.GetString(constants.DBPassword),
+		d.cfg.GetString(constants.DBName))
 
 	d.log.Infoln("psqlConn", psqlConn)
-	db, err = sql.Open(d.cfg.GetString(constants.Database), psqlConn)
+	db, err = sql.Open("postgres", psqlConn)
 	if err != nil {
 		d.log.Fatalf("error: exec schema migration table - %s", err.Error())
 	}

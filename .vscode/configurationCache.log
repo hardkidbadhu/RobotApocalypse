@@ -1,0 +1,1 @@
+{"buildTargets":["build","build_and_run","db_down","db_up","format","generate_docs","install_deps","run"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

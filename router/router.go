@@ -16,7 +16,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func SetupRouter(l *logrus.Entry, cfg configuration.Config) *gin.Engine  {
+func SetupRouter(l *logrus.Entry, cfg configuration.Config) *gin.Engine {
 
 	dbConnect := repository.NewDBConnect(cfg, l)
 	dbIns := dbConnect.ConnectDB()
@@ -38,7 +38,6 @@ func SetupRouter(l *logrus.Entry, cfg configuration.Config) *gin.Engine  {
 	router.GET("/api/rob/v1/healthz", healthCheckCtl.HealthCheck)
 
 	repo := repository.NewSurvivorRepo(l, dbIns)
-
 
 	report := router.Group("/api/rob/v1/reports")
 	{
@@ -63,4 +62,3 @@ func SetupRouter(l *logrus.Entry, cfg configuration.Config) *gin.Engine  {
 
 	return router
 }
-

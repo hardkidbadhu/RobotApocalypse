@@ -1,11 +1,12 @@
 package services
 
 import (
+	"strconv"
+
 	"github.com/RobotApocalypse/model"
 	"github.com/RobotApocalypse/repository"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
-	"strconv"
 )
 
 type Survivor interface {
@@ -22,13 +23,13 @@ type survivorSvc struct {
 func (s survivorSvc) AddSurvivor(ctx *gin.Context, sIns *model.SurvivorPayload) error {
 	//1. Add the survivor to the base
 	sId, err := s.repo.AddSurvivor(ctx, &model.Survivor{
-		SurvivorPayload:sIns,
+		SurvivorPayload: sIns,
 	})
 
 	if err != nil {
 		s.log.Errorf("svc: AddSurvivor (adding survivor) - %s", err.Error())
 		return &model.ErrResp{
-			Err: err,
+			Err:     err,
 			ErrCode: model.ErrDB,
 			Message: "error in inserting survivor data",
 		}
@@ -36,12 +37,10 @@ func (s survivorSvc) AddSurvivor(ctx *gin.Context, sIns *model.SurvivorPayload) 
 
 	err = s.repo.AddSurvivorInventory(ctx, sId, sIns.Inventory)
 	if err != nil {
-		if err != nil {
-			return &model.ErrResp{
-				Err: err,
-				ErrCode: model.ErrDB,
-				Message: "error in inserting survivor's inventory data",
-			}
+		return &model.ErrResp{
+			Err:     err,
+			ErrCode: model.ErrDB,
+			Message: "error in inserting survivor's inventory data",
 		}
 	}
 
@@ -62,7 +61,7 @@ func (s survivorSvc) UpdateSurvivorLocation(ctx *gin.Context, location *model.Lo
 	err := s.repo.UpdateLocation(ctx, int64(userId), location)
 	if err != nil {
 		return &model.ErrResp{
-			Err: err,
+			Err:     err,
 			ErrCode: model.ErrDB,
 			Message: "error in inserting survivor's inventory data",
 		}
@@ -73,10 +72,10 @@ func (s survivorSvc) UpdateSurvivorLocation(ctx *gin.Context, location *model.Lo
 
 func (s survivorSvc) FlagSurvivor(ctx *gin.Context, flagIns *model.FlagPayload) (bool, error) {
 
-	count, err := s.repo.CountInfectedLogs(ctx,int64( flagIns.InfectedUser))
+	count, err := s.repo.CountInfectedLogs(ctx, int64(flagIns.InfectedUser))
 	if err != nil {
 		return false, &model.ErrResp{
-			Err: err,
+			Err:     err,
 			ErrCode: model.ErrDB,
 			Message: "error in marking user infected, please try after sometime",
 		}
@@ -86,7 +85,7 @@ func (s survivorSvc) FlagSurvivor(ctx *gin.Context, flagIns *model.FlagPayload) 
 	case 2:
 		if err := s.repo.InsertInfectionLog(ctx, flagIns); err != nil {
 			return false, &model.ErrResp{
-				Err: err,
+				Err:     err,
 				ErrCode: model.ErrDB,
 				Message: "error in marking user infected, please try after sometime",
 			}
@@ -94,7 +93,7 @@ func (s survivorSvc) FlagSurvivor(ctx *gin.Context, flagIns *model.FlagPayload) 
 
 		if err := s.repo.FlagUser(ctx, int64(flagIns.InfectedUser)); err != nil {
 			return false, &model.ErrResp{
-				Err: err,
+				Err:     err,
 				ErrCode: model.ErrDB,
 				Message: "error in marking user infected, please try after sometime",
 			}
@@ -104,7 +103,7 @@ func (s survivorSvc) FlagSurvivor(ctx *gin.Context, flagIns *model.FlagPayload) 
 	default:
 		if err := s.repo.InsertInfectionLog(ctx, flagIns); err != nil {
 			return false, &model.ErrResp{
-				Err: err,
+				Err:     err,
 				ErrCode: model.ErrDB,
 				Message: "error in marking user infected, please try after sometime",
 			}

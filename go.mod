@@ -3,8 +3,7 @@ module github.com/RobotApocalypse
 go 1.17
 
 require (
-	github.com/gin-gonic/gin v1.7.4
-	github.com/golang-migrate/migrate v3.5.4+incompatible
+	github.com/gin-gonic/gin v1.7.7
 	github.com/golang-migrate/migrate/v4 v4.15.1
 	github.com/lib/pq v1.10.3
 	github.com/sirupsen/logrus v1.8.1
@@ -12,7 +11,6 @@ require (
 	github.com/swaggo/files v0.0.0-20210815190702-a29dd2bc99b2
 	github.com/swaggo/gin-swagger v1.3.2
 	github.com/swaggo/swag v1.7.4
-	github.com/twpayne/go-geom v1.4.1
 	github.com/xeipuuv/gojsonschema v1.2.0
 )
 
@@ -32,6 +30,7 @@ require (
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.9.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
+	github.com/golang-migrate/migrate v3.5.4+incompatible // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.0 // indirect
@@ -52,6 +51,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
+	github.com/twpayne/go-geom v1.4.1 // indirect
 	github.com/ugorji/go v1.2.6 // indirect
 	github.com/ugorji/go/codec v1.2.6 // indirect
 	github.com/urfave/cli v1.22.5 // indirect
